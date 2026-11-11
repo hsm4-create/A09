@@ -1,128 +1,104 @@
-/* custom property */
+/* --- Root Variables (Step 11) --- */
 :root {
-	--accent-color: #800000;  /* could also be coded #800 */
-	--gradient-color: #f6bb73;
+    --light-menu: #ffffff;
+    --mid-menu: antiquewhite;
+    --dark-menu: #333333;
+    --accent-color: #a44343; /* Adjust to match your project's accent color theme */
 }
 
-/* reset */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-/* default styles */
+/* --- Basic Structure --- */
 body {
-	font-family: Arial, Helvetica, sans-serif;
-    font-size: calc(15px + .2vw);
-	width: min(80%, 1024px);
-	line-height: 1.5;
-	margin: auto;
-	border: 2px solid var(--accent-color);
-}
-h1, h2, h3, p, ul {
-	padding: .25em 0;
-}
-a:hover, a:focus{
-	font-style: italic;
-	color: var(--accent-color);
-}
-h1 {
-	font-size: 150%;
-}
-h2 {
-	font-size: 130%;
-	color: var(--accent-color);
-}
-h3 {
-	font-size: 105%;
-}
-ul {
-	margin-left: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 10px;
 }
 
-/* the styles for the header */
-header {
-	line-height: 1.2;
-	border-bottom: 2px solid var(--accent-color);
-	background-image: linear-gradient(
-	    30deg, var(--gradient-color) 0%, white 30%, white 65%, var(--gradient-color) 100%);
-	& h2 {
-		font-size: 175%;
-		padding: .5em 0 0 0;
-	}
-	& h3 {
-		font-size: 130%;
-		font-style: italic;
-		padding-bottom: 1em;
-	}
-	& img {
-		width: clamp(40px, 15%, 80px);
-		float: left;
-		margin: .75em 1em;
-	}
+/* --- Exercise 7-1: Menu Class Flexbox Implementation --- */
+.menu {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Removes bullets from the list items */
 }
 
-/* the styles for the main content */
-main {
-	display: flex;
-	clear: left;
-	padding: 0 1em 1em;
-	& blockquote {
-		font-style: italic;
-		padding-left: 1em;
-	}
-	& h3 + img { /* speaker images */
-		width: clamp(40px, 50%, 75px);
-		border: 4px double var(--accent-color);
-		border-radius: 10px;
-	}
+/* Step 9: Space out main menu items evenly */
+.menu > li {
+    flex-basis: 20%;
+    text-align: center; /* Step 15: Centers text inside menu items */
 }
 
-/* the styles for the section */
-section {
-	flex-basis: 75%;
-	padding-left: .5em;
-	& img {
-		width: clamp(100px, 50%, 250px);
-		float: right;
-		margin: 0 1em .25em;
-	}
+/* --- Navbar Styling & Links (Step 12) --- */
+.navbar {
+    background-color: var(--accent-color);
 }
 
-/* the styles for the aside */
-aside {
-	flex-basis: 25%;
-	padding-right: .5em;
+.navbar a {
+    display: block;
+    padding: 1em;
+    text-decoration: none;
+    color: var(--light-menu);
+    /* Step 14: Margins for space around items */
+    margin-top: 0;
+    margin-bottom: 2px;
+    margin-left: 1px;
+    margin-right: 1px;
 }
 
-/* the styles for the footer */
-footer {
-	background-color: var(--accent-color);
-	& p {
-		text-align: center;
-		color: white;
-		padding: 1em 0;
-	}
+/* Hover, Focus, and Current styles */
+.navbar a:hover,
+.navbar a:focus,
+.navbar a.current {
+    background-color: var(--mid-menu);
+    color: var(--dark-menu);
 }
 
-/* CSS class */
-.featured {
-	border-top: 2px solid var(--accent-color);
-	border-bottom: 2px solid var(--accent-color);
-	padding: .5em 0 1em;
+/* --- Exercise 7-2: Submenu Implementations --- */
+
+/* Step 5: Establish positioning context for items containing submenus */
+.menu li {
+    position: relative;
 }
-.speaker {
-	& h1 {
-		color: var(--accent-color);
-	}
-	& h2 {
-		color: black;
-	}
-	& p {
-		padding: .5em 0; 
-	}	
+
+/* Step 6: Spacer for the small dropdown arrow */
+.menu small {
+    padding-left: 0.5em;
 }
-.large {
-	font-size: 125%;
+
+/* Step 9 & 10: Absolute positioning for the dropdown deck */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--accent-color);
+    z-index: 100;
+    display: none; /* Step 13: Kept hidden until hovered */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Step 7 & 8: Trigger display on hover */
+.menu li:hover .submenu {
+    display: block;
+}
+
+/* Submenu layout styling rules */
+.submenu li {
+    width: 100%;
+}
+
+/* Step 18: Match left and right margins of submenus with main items */
+.submenu > li a {
+    margin: 0 2px 2px;
+}
+
+/* Step 19: Clear outer edge margin spacing flush to the container boundaries */
+.menu > li:first-child a { 
+    margin-left: 0; 
+}
+.menu > li:last-child a { 
+    margin-right: 0; 
 }
