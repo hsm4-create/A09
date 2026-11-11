@@ -1,5 +1,4 @@
 
-/* custom properties */
 :root {
     --accent-color: #800000;
     --gradient-color: #f6bb73;
@@ -8,26 +7,22 @@
     --menu-dark-color: #222;
 }
 
-/* reset */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* default styles */
+/* Default styles */
 body {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: calc(15px + .2vw);
-    width: min(80%, 1024px);
+    font-size: calc(90% + .2vw);
     line-height: 1.5;
+    width: 80%;
+    max-width: 1024px;
     margin: auto;
     border: 2px solid var(--accent-color);
-}
-
-a:hover, a:focus {
-    font-style: italic;
-    color: var(--accent-color);
 }
 
 h1, h2, h3, p, ul {
@@ -47,11 +42,12 @@ h3 {
     font-size: 105%;
 }
 
-ul {
-    margin-left: 2em;
+a:hover, a:focus {
+    font-style: italic;
+    color: var(--accent-color);
 }
 
-/* header */
+/* Header */
 header {
     line-height: 1.2;
     border-bottom: 2px solid var(--accent-color);
@@ -62,93 +58,87 @@ header {
         white 65%,
         var(--gradient-color) 100%
     );
-
-    & h2 {
-        font-size: 175%;
-        padding: .5em 0 0 0;
-    }
-
-    & h3 {
-        font-size: 130%;
-        font-style: italic;
-        padding-bottom: 1em;
-    }
-
-    & img {
-        width: clamp(40px, 15%, 80px);
-        float: left;
-        margin: .75em 1em;
-    }
 }
 
-/* navigation bar */
+header h2 {
+    font-size: 175%;
+    padding: .5em 0 0;
+}
+
+header h3 {
+    font-size: 130%;
+    font-style: italic;
+    padding-bottom: 1em;
+}
+
+header img {
+    float: left;
+    width: 80px;
+    min-width: 40px;
+    margin: .75em 1em;
+}
+
+/* Navigation bar */
 .navbar {
     background-color: var(--accent-color);
 }
 
-/* main navigation menu */
 .menu {
     display: flex;
     flex-wrap: wrap;
-
-    & > li {
-        flex-basis: 20%;
-        text-align: center;
-    }
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* navigation links */
-.navbar {
-    & a {
-        display: block;
-        padding: 1em;
-        margin: 0 1px 2px;
-        text-decoration: none;
-        color: var(--menu-light-color);
-    }
-
-    & a:hover,
-    & a:focus,
-    & a.current {
-        background-color: var(--menu-mid-color);
-        color: var(--menu-dark-color);
-    }
-
-    & ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-}
-
-/* dropdown parent */
-.menu > li:has(.submenu) {
+.menu > li {
+    flex: 1 1 20%;
+    text-align: center;
     position: relative;
 }
 
-/* dropdown menu */
-.submenu {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    background-color: var(--accent-color);
+.navbar a {
+    display: block;
+    padding: 1em;
+    margin: 0 1px 2px;
+    text-decoration: none;
     color: var(--menu-light-color);
-    display: none;
-    z-index: 10;
-
-    & > li a {
-        margin: 0 2px 2px;
-    }
 }
 
-/* show dropdown when hovering or focusing */
+.navbar a:hover,
+.navbar a:focus,
+.navbar a.current {
+    background-color: var(--menu-mid-color);
+    color: var(--menu-dark-color);
+}
+
+.menu small {
+    margin-left: .3em;
+}
+
+/* Dropdown menus */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--accent-color);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+}
+
 .menu > li:hover > .submenu,
 .menu > li:focus-within > .submenu {
     display: block;
 }
 
-/* remove extra outer spacing */
+.submenu li a {
+    margin: 0 2px 2px;
+}
+
 .menu > li:first-child a {
     margin-left: 0;
 }
@@ -157,92 +147,107 @@ header {
     margin-right: 0;
 }
 
-/* dropdown arrow spacing */
-.menu small {
-    margin-left: .3em;
-}
-
-/* main content */
+/* Main content */
 main {
     display: flex;
-    clear: left;
-    padding: 0 1em 1em;
-
-    & blockquote {
-        font-style: italic;
-        padding-left: 1em;
-    }
-
-    & h3 + img {
-        width: clamp(40px, 50%, 75px);
-        border: 4px double var(--accent-color);
-        border-radius: 10px;
-    }
+    flex-direction: row;
+    align-items: flex-start;
+    clear: both;
+    padding: 1em;
+    gap: 1em;
 }
 
-/* section */
-section {
-    flex-basis: 75%;
-    padding-left: .5em;
-
-    & img {
-        width: clamp(100px, 50%, 250px);
-        float: right;
-        margin: 0 1em .25em;
-    }
-}
-
-/* sidebar */
+/* Sidebar */
 aside {
-    flex-basis: 25%;
+    flex: 0 0 25%;
+    min-width: 0;
     padding-right: .5em;
 }
 
-/* featured speaker */
+aside img {
+    display: block;
+    width: 75px;
+    max-width: 100%;
+    height: auto;
+    border: 4px double var(--accent-color);
+    border-radius: 10px;
+    margin-bottom: .75em;
+}
+
+/* Main section */
+section {
+    flex: 1 1 75%;
+    min-width: 0;
+    padding-left: .5em;
+}
+
+section img {
+    float: right;
+    width: 100%;
+    max-width: 250px;
+    min-width: 100px;
+    height: auto;
+    margin: 0 0 .5em 1em;
+}
+
+/* Blockquote */
+blockquote {
+    font-style: italic;
+    padding-left: 1em;
+}
+
+/* Featured speaker */
 .featured {
     border-top: 2px solid var(--accent-color);
     border-bottom: 2px solid var(--accent-color);
     padding: .5em 0 1em;
 }
 
-/* speaker page */
-.speaker {
-    & h1 {
-        color: var(--accent-color);
-    }
-
-    & h2 {
-        color: black;
-    }
-
-    & p {
-        padding: .5em 0;
-    }
+/* Speaker pages */
+.speaker h1 {
+    color: var(--accent-color);
 }
 
-/* footer */
+.speaker h2 {
+    color: black;
+}
+
+.speaker p {
+    padding: .5em 0;
+}
+
+/* Footer */
 footer {
     background-color: var(--accent-color);
-
-    & p {
-        text-align: center;
-        color: white;
-        padding: 1em 0;
-    }
 }
 
-/* large text */
+footer p {
+    text-align: center;
+    color: white;
+    padding: 1em 0;
+}
+
+/* Large text */
 .large {
     font-size: 125%;
 }
 
-/* smaller screens */
-@media (max-width: 600px) {
+/* Smaller screens */
+@media screen and (max-width: 600px) {
+    body {
+        width: 95%;
+    }
+
     .menu > li {
         flex-basis: 50%;
     }
 
     main {
         flex-direction: column;
+    }
+
+    aside, section {
+        width: 100%;
+        flex-basis: 100%;
     }
 }
