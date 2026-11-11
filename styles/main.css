@@ -139,27 +139,19 @@ header img {
     margin: 0 2px 2px;
 }
 
-.menu > li:first-child a {
-    margin-left: 0;
-}
-
-.menu > li:last-child a {
-    margin-right: 0;
-}
-
-/* Main content */
+/* Main content - TWO COLUMN LAYOUT */
 main {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    clear: both;
-    padding: 1em;
+    display: grid !important;
+    grid-template-columns: 25% minmax(0, 1fr);
+    align-items: start;
     gap: 1em;
+    padding: 1em;
+    clear: both;
 }
 
 /* Sidebar */
 aside {
-    flex: 0 0 25%;
+    width: 100%;
     min-width: 0;
     padding-right: .5em;
 }
@@ -176,7 +168,7 @@ aside img {
 
 /* Main section */
 section {
-    flex: 1 1 75%;
+    width: 100%;
     min-width: 0;
     padding-left: .5em;
 }
@@ -188,6 +180,12 @@ section img {
     min-width: 100px;
     height: auto;
     margin: 0 0 .5em 1em;
+}
+
+/* Bulleted lists */
+section ul {
+    list-style-type: circle;
+    margin-left: 2em;
 }
 
 /* Blockquote */
@@ -243,11 +241,10 @@ footer p {
     }
 
     main {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
     aside, section {
         width: 100%;
-        flex-basis: 100%;
     }
 }
