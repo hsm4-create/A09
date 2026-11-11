@@ -1,146 +1,248 @@
-/* --- Root Variables --- */
+
+/* custom properties */
 :root {
-    --light-menu: #ffffff;
-    --mid-menu: antiquewhite;
-    --dark-menu: #333333;
-    --accent-color: #a44343;
+    --accent-color: #800000;
+    --gradient-color: #f6bb73;
+    --menu-light-color: white;
+    --menu-mid-color: antiquewhite;
+    --menu-dark-color: #222;
 }
 
-/* --- Basic Structure & Layout Fix --- */
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 10px;
-}
-
-header {
-    padding-bottom: 10px;
-}
-
-/* Flex layout to make <aside> and <section> sit horizontally side-by-side */
-main {
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 30px;
-    margin-top: 20px;
-}
-
-aside {
-    flex-basis: 25%;
-}
-
-section {
-    flex-basis: 75%;
-}
-
-/* Block image sizing alignment matches */
-aside img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* --- Exercise 7-1: Menu Class Flexbox Implementation --- */
-.menu {
-    display: flex;
-    flex-flow: row wrap;
+/* reset */
+* {
     margin: 0;
     padding: 0;
-    list-style: none; 
+    box-sizing: border-box;
 }
 
-/* Space out main menu items evenly */
-.menu > li {
-    flex-basis: 20%;
-    text-align: center; 
+/* default styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: calc(15px + .2vw);
+    width: min(80%, 1024px);
+    line-height: 1.5;
+    margin: auto;
+    border: 2px solid var(--accent-color);
 }
 
-/* --- Navbar Styling & Links --- */
+a:hover, a:focus {
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+h1, h2, h3, p, ul {
+    padding: .25em 0;
+}
+
+h1 {
+    font-size: 150%;
+}
+
+h2 {
+    font-size: 130%;
+    color: var(--accent-color);
+}
+
+h3 {
+    font-size: 105%;
+}
+
+ul {
+    margin-left: 2em;
+}
+
+/* header */
+header {
+    line-height: 1.2;
+    border-bottom: 2px solid var(--accent-color);
+    background-image: linear-gradient(
+        30deg,
+        var(--gradient-color) 0%,
+        white 30%,
+        white 65%,
+        var(--gradient-color) 100%
+    );
+
+    & h2 {
+        font-size: 175%;
+        padding: .5em 0 0 0;
+    }
+
+    & h3 {
+        font-size: 130%;
+        font-style: italic;
+        padding-bottom: 1em;
+    }
+
+    & img {
+        width: clamp(40px, 15%, 80px);
+        float: left;
+        margin: .75em 1em;
+    }
+}
+
+/* navigation bar */
 .navbar {
     background-color: var(--accent-color);
 }
 
-.navbar a {
-    display: block;
-    padding: 1em;
-    text-decoration: none;
-    color: var(--light-menu);
-    margin-top: 0;
-    margin-bottom: 2px;
-    margin-left: 1px;
-    margin-right: 1px;
+/* main navigation menu */
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > li {
+        flex-basis: 20%;
+        text-align: center;
+    }
 }
 
-/* Hover, Focus, and Current styles */
-.navbar a:hover,
-.navbar a:focus,
-.navbar a.current {
-    background-color: var(--mid-menu);
-    color: var(--dark-menu);
-    cursor: pointer;
+/* navigation links */
+.navbar {
+    & a {
+        display: block;
+        padding: 1em;
+        margin: 0 1px 2px;
+        text-decoration: none;
+        color: var(--menu-light-color);
+    }
+
+    & a:hover,
+    & a:focus,
+    & a.current {
+        background-color: var(--menu-mid-color);
+        color: var(--menu-dark-color);
+    }
+
+    & ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 }
 
-/* --- Exercise 7-2: Submenu Implementations --- */
-.menu li {
+/* dropdown parent */
+.menu > li:has(.submenu) {
     position: relative;
 }
 
-.menu small {
-    padding-left: 0.5em;
-}
-
-/* Absolute positioning for the dropdown deck */
+/* dropdown menu */
 .submenu {
     position: absolute;
-    top: 100%;
     left: 0;
     right: 0;
+    top: 100%;
     background-color: var(--accent-color);
-    z-index: 100;
-    display: none; 
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    color: var(--menu-light-color);
+    display: none;
+    z-index: 10;
+
+    & > li a {
+        margin: 0 2px 2px;
+    }
 }
 
-/* Trigger dropdown display on hover */
-.menu li:hover .submenu {
+/* show dropdown when hovering or focusing */
+.menu > li:hover > .submenu,
+.menu > li:focus-within > .submenu {
     display: block;
 }
 
-.submenu li {
-    width: 100%;
-    text-align: left;
+/* remove extra outer spacing */
+.menu > li:first-child a {
+    margin-left: 0;
 }
 
-.submenu li a {
-    padding: 0.8em 1em;
+.menu > li:last-child a {
+    margin-right: 0;
 }
 
-/* Match left and right margins of submenus with main items */
-.submenu > li a {
-    margin: 0 2px 2px;
+/* dropdown arrow spacing */
+.menu small {
+    margin-left: .3em;
 }
 
-/* Clear outer edge margin spacing flush to the container boundaries */
-.menu > li:first-child a { 
-    margin-left: 0; 
-}
-.menu > li:last-child a { 
-    margin-right: 0; 
+/* main content */
+main {
+    display: flex;
+    clear: left;
+    padding: 0 1em 1em;
+
+    & blockquote {
+        font-style: italic;
+        padding-left: 1em;
+    }
+
+    & h3 + img {
+        width: clamp(40px, 50%, 75px);
+        border: 4px double var(--accent-color);
+        border-radius: 10px;
+    }
 }
 
-/* --- Rubric Adjustments --- */
-/* Force home page content bulleted lists to use circles instead of filled disks */
-.mission-list {
-    list-style-type: circle;
-    margin-left: 20px;
-    padding-left: 10px;
-    margin-bottom: 20px;
+/* section */
+section {
+    flex-basis: 75%;
+    padding-left: .5em;
+
+    & img {
+        width: clamp(100px, 50%, 250px);
+        float: right;
+        margin: 0 1em .25em;
+    }
 }
 
+/* sidebar */
+aside {
+    flex-basis: 25%;
+    padding-right: .5em;
+}
+
+/* featured speaker */
+.featured {
+    border-top: 2px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding: .5em 0 1em;
+}
+
+/* speaker page */
+.speaker {
+    & h1 {
+        color: var(--accent-color);
+    }
+
+    & h2 {
+        color: black;
+    }
+
+    & p {
+        padding: .5em 0;
+    }
+}
+
+/* footer */
 footer {
-    margin-top: 30px;
-    border-top: 2px solid #ccc;
-    padding-top: 10px;
+    background-color: var(--accent-color);
+
+    & p {
+        text-align: center;
+        color: white;
+        padding: 1em 0;
+    }
+}
+
+/* large text */
+.large {
+    font-size: 125%;
+}
+
+/* smaller screens */
+@media (max-width: 600px) {
+    .menu > li {
+        flex-basis: 50%;
+    }
+
+    main {
+        flex-direction: column;
+    }
 }
