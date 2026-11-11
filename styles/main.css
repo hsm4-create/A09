@@ -1,17 +1,43 @@
-/* --- Root Variables (Step 11) --- */
+/* --- Root Variables --- */
 :root {
     --light-menu: #ffffff;
     --mid-menu: antiquewhite;
     --dark-menu: #333333;
-    --accent-color: #a44343; /* Adjust to match your project's accent color theme */
+    --accent-color: #a44343;
 }
 
-/* --- Basic Structure --- */
+/* --- Basic Structure & Layout Fix --- */
 body {
     font-family: Arial, Helvetica, sans-serif;
     max-width: 980px;
     margin: 0 auto;
     padding: 10px;
+}
+
+header {
+    padding-bottom: 10px;
+}
+
+/* Flex layout to make <aside> and <section> sit horizontally side-by-side */
+main {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+aside {
+    flex-basis: 25%;
+}
+
+section {
+    flex-basis: 75%;
+}
+
+/* Block image sizing alignment matches */
+aside img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* --- Exercise 7-1: Menu Class Flexbox Implementation --- */
@@ -20,16 +46,16 @@ body {
     flex-flow: row wrap;
     margin: 0;
     padding: 0;
-    list-style: none; /* Removes bullets from the list items */
+    list-style: none; 
 }
 
-/* Step 9: Space out main menu items evenly */
+/* Space out main menu items evenly */
 .menu > li {
     flex-basis: 20%;
-    text-align: center; /* Step 15: Centers text inside menu items */
+    text-align: center; 
 }
 
-/* --- Navbar Styling & Links (Step 12) --- */
+/* --- Navbar Styling & Links --- */
 .navbar {
     background-color: var(--accent-color);
 }
@@ -39,7 +65,6 @@ body {
     padding: 1em;
     text-decoration: none;
     color: var(--light-menu);
-    /* Step 14: Margins for space around items */
     margin-top: 0;
     margin-bottom: 2px;
     margin-left: 1px;
@@ -52,21 +77,19 @@ body {
 .navbar a.current {
     background-color: var(--mid-menu);
     color: var(--dark-menu);
+    cursor: pointer;
 }
 
 /* --- Exercise 7-2: Submenu Implementations --- */
-
-/* Step 5: Establish positioning context for items containing submenus */
 .menu li {
     position: relative;
 }
 
-/* Step 6: Spacer for the small dropdown arrow */
 .menu small {
     padding-left: 0.5em;
 }
 
-/* Step 9 & 10: Absolute positioning for the dropdown deck */
+/* Absolute positioning for the dropdown deck */
 .submenu {
     position: absolute;
     top: 100%;
@@ -74,31 +97,50 @@ body {
     right: 0;
     background-color: var(--accent-color);
     z-index: 100;
-    display: none; /* Step 13: Kept hidden until hovered */
+    display: none; 
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-/* Step 7 & 8: Trigger display on hover */
+/* Trigger dropdown display on hover */
 .menu li:hover .submenu {
     display: block;
 }
 
-/* Submenu layout styling rules */
 .submenu li {
     width: 100%;
+    text-align: left;
 }
 
-/* Step 18: Match left and right margins of submenus with main items */
+.submenu li a {
+    padding: 0.8em 1em;
+}
+
+/* Match left and right margins of submenus with main items */
 .submenu > li a {
     margin: 0 2px 2px;
 }
 
-/* Step 19: Clear outer edge margin spacing flush to the container boundaries */
+/* Clear outer edge margin spacing flush to the container boundaries */
 .menu > li:first-child a { 
     margin-left: 0; 
 }
 .menu > li:last-child a { 
     margin-right: 0; 
+}
+
+/* --- Rubric Adjustments --- */
+/* Force home page content bulleted lists to use circles instead of filled disks */
+.mission-list {
+    list-style-type: circle;
+    margin-left: 20px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+
+footer {
+    margin-top: 30px;
+    border-top: 2px solid #ccc;
+    padding-top: 10px;
 }
